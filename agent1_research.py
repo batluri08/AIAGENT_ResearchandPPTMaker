@@ -1,15 +1,11 @@
 from langchain_openai import ChatOpenAI
 import chromadb
 from langchain.prompts import PromptTemplate
-from dotenv import load_dotenv
-import os
+import streamlit as st  # ✅ Replace dotenv with Streamlit's secrets
 from serpapi import GoogleSearch
 
-# Load environment variables
-load_dotenv()
-
-# Initialize LLM
-llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
+# Initialize LLM with secrets
+llm = ChatOpenAI(api_key=st.secrets["OPENAI_API_KEY"], model="gpt-4o")
 
 # Initialize shared memory (ChromaDB)
 client = chromadb.PersistentClient(path="./chroma_db")
@@ -18,7 +14,7 @@ collection = client.get_collection(name="shared_memory")
 def fetch_search_results(query: str) -> str:
     search = GoogleSearch({
         "q": query,
-        "api_key": os.getenv("SERPAPI_API_KEY"),
+        "api_key": st.secrets["SERPAPI_API_KEY"],
         "num": 5
     })
     results = search.get_dict()
