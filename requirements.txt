@@ -1,0 +1,10 @@
+streamlit
+requests
+streamlit-lottie
+langchain
+langchain-openai
+chromadb
+python-dotenv
+openai
+anthropic
+python-pptx
