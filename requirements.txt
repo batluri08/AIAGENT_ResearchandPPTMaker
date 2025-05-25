@@ -8,3 +8,4 @@ python-dotenv
 openai
 anthropic
 python-pptx
+protobuf==3.20.3
