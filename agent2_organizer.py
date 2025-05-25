@@ -1,17 +1,14 @@
 import chromadb
-from dotenv import load_dotenv
-import os
+import streamlit as st  # ✅ Replace dotenv with Streamlit's secrets
 from langchain_openai import ChatOpenAI
 from pptx import Presentation
 from pptx.util import Pt
 
-load_dotenv()
-
 client = chromadb.PersistentClient(path="./chroma_db")
 collection = client.get_collection(name="shared_memory")
 
-# Initialize GPT for generating PPT outlines
-llm = ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o")
+# Initialize GPT for generating PPT outlines using Streamlit secrets
+llm = ChatOpenAI(api_key=st.secrets["OPENAI_API_KEY"], model="gpt-4o")
 
 def organize_ppt(topic: str, num_slides: int) -> str:
     # Get the stored summary for this topic only
